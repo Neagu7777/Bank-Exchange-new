@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 @Repository
-@EnableJpaRepositories
+
 public interface CashServiceRepository extends JpaRepository<CashService, Long> {
+
     Optional<CashService> findByAccountId(Long accountId);
 }

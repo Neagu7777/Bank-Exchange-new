@@ -14,25 +14,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClientServiceImpl {
 
-    @Autowired
-    private final ClientRepository clientRepository;
 
-    public Optional<Client> getClientById(Long id) {
-        // Вернуть клиента по ID, если существует
-        return clientRepository.findById(id);
-    }
 
-    public Client createClient(Client client) {
-        // Создать нового клиента
-        return clientRepository.save(client);
-    }
 
-    public void deleteClientById(Long id) {
-        // Удалить клиента по ID
-        clientRepository.deleteById(id);
-    }
-
-    // Дополнительные методы и бизнес-логика по необходимости
 }
 
 

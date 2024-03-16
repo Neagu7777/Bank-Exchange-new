@@ -1,9 +1,12 @@
 package de.example.bankexchange.entity;
 
+import de.example.bankexchange.enums.ClientStatus;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
+@Getter
 @Data
 @Entity
 @Table(name = "managers")
@@ -19,8 +22,9 @@ public class Manager {
     @Column(name = "last_name")
     private String lastName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private ClientStatus status;
 
     @Column(name = "description")
     private String description;

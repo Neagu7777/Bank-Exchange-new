@@ -1,5 +1,6 @@
 package de.example.bankexchange.entity;
 
+import de.example.bankexchange.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
-
+@Getter
 @Entity
 @Table(name = "cash_services")
 @Data
@@ -19,9 +20,9 @@ public class CashService {
     private Long accountId;
 
     // Геттер и сеттер для поля type
-    @Getter
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private String type;
+    private TransactionType type;
 
     // геттер и сеттер для amount
     @Getter
@@ -35,32 +36,5 @@ public class CashService {
     private LocalDateTime date;
 
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-    // Constructors, getters, setters
-    //...
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setName(String name) {
-    }
-
-    public Long getId() {
-        return null;
-    }
-
-    public void setId(Long id) {
-    }
-
-    // Дополнительные поля и связи с другими сущностями
-    // Добавьте необходимые поля для реализации функционала услуги кассы
-
-    // Конструкторы, геттеры, сеттеры
 }

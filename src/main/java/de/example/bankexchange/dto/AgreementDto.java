@@ -15,15 +15,6 @@ public class AgreementDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Comparable<BigDecimal> getIncome() {
-        return null;
-    }
-
-    public Object getAmount() {
-        return null;
-    }
-
-    // Constructors, getters, setters
 
 
 }

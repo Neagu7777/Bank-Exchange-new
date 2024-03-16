@@ -1,44 +1,54 @@
 package de.example.bankexchange.service;
 
-import de.example.bankexchange.entity.Agreement;
-import de.example.bankexchange.repository.AgreementRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import de.example.bankexchange.entity.Agreement;
+import de.example.bankexchange.enums.ProductAgreement;
+import de.example.bankexchange.repository.AgreementRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
+import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class AgreementService {
 
-    @Autowired
-    private AgreementRepository agreementRepository;
+    private final AgreementRepository agreementRepository;
 
-    // Метод для получения всех соглашений
+    public AgreementService(AgreementRepository agreementRepository) {
+        this.agreementRepository = agreementRepository;
+    }
+
+    @Transactional(readOnly = true)
     public List<Agreement> getAllAgreements() {
-        return agreementRepository.findAll();
+        List<Agreement> agreements = agreementRepository.findAll();
+        agreements.forEach(this::convertEnumValuesToStrings);
+        return agreements;
     }
 
-    // Метод для получения соглашения по ID
+    private void convertEnumValuesToStrings(Agreement agreement) {
+        try {
+            agreement.setProductId(ProductAgreement.valueOf(agreement.getProductId().name()));
+            agreement.setInterestRate(agreement.getInterestRate());
+        } catch (IllegalArgumentException e) {
+            agreement.setProductId(ProductAgreement.DEFAULT_VALUE);
+            assert ProductAgreement.getDefault() != null;
+            agreement.setInterestRate(ProductAgreement.getDefault().name());
+        }
+    }
+
+    @Transactional(readOnly = true)
     public Agreement getAgreementById(Long id) {
-        Optional<Agreement> optionalAgreement = agreementRepository.findById(id);
-        return optionalAgreement.orElse(null);
-        // Возвращаем соглашение по id или null, если не найдено
+        Optional<Agreement> agreementOptional = agreementRepository.findById(id);
+        return agreementOptional.orElse(null);
     }
 
-    // Метод для создания нового соглашения
     public Agreement createAgreement(Agreement agreement) {
         return agreementRepository.save(agreement);
-        // Возвращаем созданное соглашение
     }
 
-    // Метод для удаления соглашения по ID
     public void deleteAgreementById(Long id) {
         agreementRepository.deleteById(id);
-        // Удаляем соглашение по id
     }
 
-    // Другие методы для бизнес-логики соглашений
+    // Остальные методы сервиса
 }

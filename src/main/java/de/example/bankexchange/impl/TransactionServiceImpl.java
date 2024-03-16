@@ -12,52 +12,6 @@ import java.math.BigDecimal;
 @Service
 @RequiredArgsConstructor
 public class TransactionServiceImpl {
-    @Autowired
-    private TransactionRepository transactionRepository;
-
-
-    @Autowired
-    public TransactionServiceImpl(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
-
-    // Внутренний перевод
-    public boolean makeInternalTransfer(Account sender, Account receiver, BigDecimal amount) {
-        // Проверка наличия достаточных средств на счете отправителя
-        if (sender.getBalance() >= 0) {
-            // Обновление баланса отправителя и получателя
-            sender.setBalance(sender.getBalance());
-            receiver.setBalance(receiver.getBalance());
-
-            // Запись операции в журнал транзакций
-            Transaction transaction = new Transaction(sender, receiver, amount, "TransactionLocal");
-            transactionRepository.save(transaction);
-
-            return true; // Перевод успешно выполнен
-        } else {
-            return false; // Недостаточно средств на счете отправителя
-        }
-    }
-
-    // Межбанковский перевод
-    public boolean makeInterbankTransfer(String senderBankCode, String receiverBankCode, String receiverAccountNumber, BigDecimal amount) {
-        // Реализация бизнес-логики для межбанковского перевода
-        // Включает проверку реквизитов, учет комиссий и обработку подтверждений от другого банка
-
-        // В данном примере, пусть межбанковский перевод всегда успешен
-        // Добавьте здесь вашу логику
-
-        // Пример:
-        // Проверка реквизитов, комиссий и отправка запроса на подтверждение
-        // ...
-
-        // После успешного подтверждения
-        // Запись операции в журнал транзакций
-        Transaction transaction = new Transaction(senderBankCode, receiverBankCode, receiverAccountNumber, amount, "InterbankTransfer");
-        transactionRepository.save(transaction);
-
-        return true; // Перевод успешно выполнен
-    }
 
 }
 /*

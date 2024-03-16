@@ -13,14 +13,5 @@ public class CurrencyExchangeDto {
     private BigDecimal amount;
     private LocalDateTime date;
 
-    // Конструкторы, геттеры, сеттеры (автоматически генерируются Lombok'ом)
 
-
-    public CurrencyExchangeDto(String sourceCurrency, String targetCurrency, BigDecimal exchangeRate, BigDecimal amount, LocalDateTime date) {
-        this.sourceCurrency = sourceCurrency;
-        this.targetCurrency = targetCurrency;
-        this.exchangeRate = exchangeRate;
-        this.amount = amount;
-        this.date = date;
-    }
 }

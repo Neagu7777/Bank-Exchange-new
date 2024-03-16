@@ -13,49 +13,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CashServiceServiceImpl {
 
-    @Autowired
-    private CashServiceRepository cashServiceRepository;
 
-    // Другие методы, если необходимо
 
-    // Внесение наличных
-    public boolean depositCash(Long accountId, double amount) {
-        Optional<CashService> cashService = cashServiceRepository.findByAccountId(accountId);
 
-        if (cashService.isPresent()) {
-            CashService cashServiceEntity = cashService.get();
-            cashServiceEntity.setAmount(cashServiceEntity.getAmount().add(BigDecimal.valueOf(amount)));
-            cashServiceRepository.save(cashServiceEntity);
-            return true; // Успешное внесение наличных
-        } else {
-            // Создаем новую сущность, если счет не найден
-            CashService cashServiceEntity = new CashService();
-            cashServiceEntity.setAccountId(accountId);
-            cashServiceEntity.setAmount(BigDecimal.valueOf(amount));
-            cashServiceRepository.save(cashServiceEntity);
-            return true; // Успешное внесение наличных
-        }
-    }
-
-    // Снятие наличных
-    public boolean withdrawCash(Long accountId, double amount) {
-        Optional<CashService> cashService = cashServiceRepository.findByAccountId(accountId);
-
-        if (cashService.isPresent()) {
-            CashService cashServiceEntity = cashService.get();
-
-            // Проверяем, достаточно ли средств на счете
-            if (cashServiceEntity.getAmount().doubleValue() >= amount) {
-                cashServiceEntity.setAmount(cashServiceEntity.getAmount().subtract(BigDecimal.valueOf(amount)));
-                cashServiceRepository.save(cashServiceEntity);
-                return true; // Успешное снятие наличных
-            } else {
-                return false; // Недостаточно средств на счете
-            }
-        } else {
-            return false; // Счет не найден
-        }
-    }
 }
     /*
 

@@ -1,12 +1,13 @@
 package de.example.bankexchange.entity;
 
-import de.example.bankexchange.enums.BankServiceType;
+import de.example.bankexchange.enums.AccountServiceType;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "bank_services")
 @Data
@@ -15,12 +16,13 @@ public class BankService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "name")
-    private String name;
+    private AccountServiceType name;
 
     @Column(name = "service_type")
     @Enumerated(EnumType.STRING)
-    private BankServiceType serviceType;
+    private AccountServiceType serviceType;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -28,26 +30,6 @@ public class BankService {
     // Constructors, getters, setters
     //...
 
-    public BankService() {
-        // Конструктор по умолчанию
-    }
-
-    public List<BankService> getAllBankServices() {
-        return null;
-    }
-
-    public BankService getBankServiceById(Long id) {
-
-        return null;
-    }
-
-    public BankService createBankService(BankService bankService) {
-        return bankService;
-    }
-
-    public void deleteBankServiceById(Long id) {
-    }
-    // Другие поля по необходимости
 
     // Конструкторы, геттеры, сеттеры
 }

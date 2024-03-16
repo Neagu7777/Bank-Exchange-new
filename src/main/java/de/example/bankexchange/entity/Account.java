@@ -1,35 +1,46 @@
 package de.example.bankexchange.entity;
 
+import de.example.bankexchange.enums.AccountStatus;
+import de.example.bankexchange.enums.AccountType;
+import de.example.bankexchange.enums.AccountServiceType;
+import de.example.bankexchange.enums.CurrencyCode;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+@Getter
 @Data
 @Entity
 @Table(name = "accounts")
 public class Account {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private BigDecimal balance;
+
     @Column(name = "client_id")
     private Long clientId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "name")
-    private String name;
+    private AccountServiceType name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private String type;
+    private AccountType type;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private AccountStatus status;
 
-    @Column(name = "balance")
-    private double balance;
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "currency_code")
-    private String currencyCode;
+    private CurrencyCode currencyCode;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -37,77 +48,9 @@ public class Account {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getClientId() {
-        return clientId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setCurrencyCode(String currencyCode) {
-        this.currencyCode = currencyCode;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     // Constructors, getters, setters
+
+
+
+
 }

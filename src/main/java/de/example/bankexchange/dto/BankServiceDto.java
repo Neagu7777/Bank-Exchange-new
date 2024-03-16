@@ -1,6 +1,6 @@
 package de.example.bankexchange.dto;
 
-import de.example.bankexchange.enums.BankServiceType;
+import de.example.bankexchange.enums.AccountServiceType;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ public class BankServiceDto {
 
     private Long id;
     private String name;
-    private BankServiceType serviceType;
+    private AccountServiceType serviceType;
     private LocalDateTime createdAt;
 
     // Constructors, getters, setters

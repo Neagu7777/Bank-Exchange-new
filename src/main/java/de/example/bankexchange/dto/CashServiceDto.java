@@ -14,16 +14,7 @@ public class CashServiceDto {
     private BigDecimal amount;
     private String description;
     private LocalDateTime date;
-    @Getter
     private String name;
 
-    // Getters and setters
-
-    public void setName(String name) {
-        this.name = name;
     }
 
-    public void setAccountId(long accountId) {
-        // Set the account ID
-    }
-}

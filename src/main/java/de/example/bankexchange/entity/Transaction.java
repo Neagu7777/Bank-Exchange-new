@@ -1,10 +1,12 @@
 package de.example.bankexchange.entity;
 
+import de.example.bankexchange.enums.ProductAgreement;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+@Getter
 @Data
 @Entity
 @Table(name = "transactions")
@@ -20,27 +22,21 @@ public class Transaction {
     @Column(name = "credit_account_id")
     private Long creditAccountId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private String type;
+    private AccessType type;
 
     @Column(name = "amount")
     private double amount;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "description")
-    private String description;
+    private ProductAgreement description;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public Transaction(Account sender, Account receiver, BigDecimal amount, String transaction) {
-    }
 
-    public Transaction(String senderBankCode, String receiverBankCode, String receiverAccountNumber, BigDecimal amount, String InterbankTransfer) {
-    }
-
-    public Transaction() {
-
-    }
 }
 
 // Constructors, getters, setters

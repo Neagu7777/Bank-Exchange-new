@@ -1,9 +1,14 @@
 package de.example.bankexchange.enums;
 
-public enum UserStatus {
+import java.util.Arrays;
+
+public enum AccountStatus {
 
     ACTIVE,
     INACTIVE,
-    PENDING_APPROVAL
+    PENDING_APPROVAL,
+    ;
     // Другие статусы по необходимости
+
+
 }

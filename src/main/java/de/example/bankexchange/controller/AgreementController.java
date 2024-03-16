@@ -1,52 +1,52 @@
 package de.example.bankexchange.controller;
 
 
-import de.example.bankexchange.dto.AgreementDto;
-import de.example.bankexchange.entity.Account;
 import de.example.bankexchange.entity.Agreement;
 import de.example.bankexchange.service.AgreementService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-@Controller
+
 @RestController
 @RequiredArgsConstructor
-@EnableScheduling
 @RequestMapping("/api/agreements")
 
 public class AgreementController {
 
     private final AgreementService agreementService;
+    private static final Logger logger = LoggerFactory.getLogger(AgreementController.class);
 
-    @GetMapping("all")
+    @GetMapping("/all")
     public ResponseEntity<List<Agreement>> getAllAgreements() {
-        List<Agreement> agreements = agreementService.getAllAgreements();
-        return new ResponseEntity<>(agreements, HttpStatus.OK);
+        try {
+            List<Agreement> agreements = agreementService.getAllAgreements();
+            return new ResponseEntity<>(agreements, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("An error occurred while fetching all agreements: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
-    @GetMapping("info/{id}")
+    @GetMapping("/info/{id}")
     public ResponseEntity<Agreement> getAgreementById(@PathVariable Long id) {
         Agreement agreement = agreementService.getAgreementById(id);
-        return (agreement != null) ? new ResponseEntity<>(agreement, HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return (agreement != null) ? ResponseEntity.ok(agreement) : ResponseEntity.notFound().build();
     }
 
-    @PostMapping("post/{id}")
+    @PostMapping("/post")
     public ResponseEntity<Agreement> createAgreement(@RequestBody Agreement agreement) {
         Agreement createdAgreement = agreementService.createAgreement(agreement);
         return new ResponseEntity<>(createdAgreement, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteAgreementById(@PathVariable Long id) {
         agreementService.deleteAgreementById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
