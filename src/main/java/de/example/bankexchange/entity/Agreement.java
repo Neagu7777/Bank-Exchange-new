@@ -19,9 +19,9 @@ public class Agreement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Client client;
 
-    @Column(name = "account_id")
-    private Long accountId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "product_id")
@@ -46,7 +46,6 @@ public class Agreement {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
 
 
 

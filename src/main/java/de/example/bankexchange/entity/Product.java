@@ -35,6 +35,7 @@ public class Product {
     @Column(name = "interest_rate")
     private String interestRate;
 
+
     @Column(name = "maximum")
     private double maximum;
 

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Data
 @Entity
@@ -16,15 +18,19 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "client")
+    private List<Account> accounts;
+
+
+    @OneToMany(mappedBy = "client")
+    private List<Agreement> agreements;
+
     @Column(name = "manager_id")
     private Long managerId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ClientStatus status;
-
-    @Column(name = "tax_code")
-    private String taxCode;
 
     @Column(name = "first_name")
     private String firstName;

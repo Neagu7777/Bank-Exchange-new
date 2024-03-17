@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 @Getter
 @Entity
-@Table(name = "currency_exchanges")
+@Table(name = "currency_exchanges_service")
 @Data
 public class CurrencyExchange {
 
