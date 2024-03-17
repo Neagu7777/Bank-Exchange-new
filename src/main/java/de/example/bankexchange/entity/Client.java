@@ -1,5 +1,6 @@
 package de.example.bankexchange.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.example.bankexchange.enums.ClientStatus;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,10 +20,12 @@ public class Client {
     private Long id;
 
     @OneToMany(mappedBy = "client")
+    @JsonIgnore // Игнорируем это поле при сериализации
     private List<Account> accounts;
 
 
     @OneToMany(mappedBy = "client")
+    @JsonIgnore
     private List<Agreement> agreements;
 
     @Column(name = "manager_id")

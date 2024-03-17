@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+
 @Getter
 @Data
 @Entity
@@ -18,6 +20,7 @@ public class Account {
 
 
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     @Enumerated(EnumType.STRING)
@@ -32,4 +35,8 @@ public class Account {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public Collection<Card> getCards() {
+        return null;
+    }
 }

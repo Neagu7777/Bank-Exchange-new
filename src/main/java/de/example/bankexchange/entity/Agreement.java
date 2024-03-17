@@ -20,6 +20,7 @@ public class Agreement {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
 

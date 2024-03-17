@@ -1,9 +1,12 @@
 package de.example.bankexchange.service;
 
 import de.example.bankexchange.entity.Account;
+import de.example.bankexchange.enums.AccountStatus;
 import de.example.bankexchange.repository.AccountRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,21 +28,27 @@ public class AccountService {
         return optionalAccount.orElse(null);
     }
 
-    public Account createAccount(Account account) {
-        return accountRepository.save(account);
-    }
 
-    public Account updateAccount(Long id, Account updatedAccount) {
-        Optional<Account> optionalAccount = accountRepository.findById(id);
-        if (optionalAccount.isPresent()) {
-            updatedAccount.setId(id);
-            return accountRepository.save(updatedAccount);
+        @Transactional
+        public Account createAccount(Account account) {
+            // Assuming you have proper validation and default values setting here
+            account.setStatus(AccountStatus.ACTIVE);
+            account.setCreatedAt(LocalDateTime.now());
+            account.setUpdatedAt(LocalDateTime.now());
+
+            // Saving the account in the repository
+            return accountRepository.save(account);
         }
-        return null;
-    }
+
+        // Other methods of the service
+
 
     public void deleteAccountById(Long id) {
         accountRepository.deleteById(id);
+    }
+
+    public Account updateAccount(Long id, Account updatedAccount) {
+        return updatedAccount;
     }
 
     // Additional methods can be added here
